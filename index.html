@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 신나는 국악여행 - 더흥컴퍼니</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; }
+        .serif { font-family: 'Noto Serif KR', serif; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            margin: 0 auto;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 350px; }
+        }
+        .active-tab {
+            background-color: #ea580c; /* orange-600 */
+            color: white;
+            border-color: #ea580c;
+        }
+        .step-content {
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals & Energetic Orange -->
+    <!-- Application Structure Plan:
+         1. Hero: Emotional hook, title, and core value proposition ("Textbook to Life").
+         2. Philosophy & Stats: Brief intro to "The Heung Company" and quantitative track record dashboard (Chart.js).
+         3. Interactive Program Journey: The core feature. A 4-step tabbed interface detailing the "Listening -> Playing -> Creating -> Sharing" flow.
+         4. Key Differentiators: 3 cards explaining why this program is unique.
+         5. The Team: Grid layout showing the ensemble.
+         6. Contact: Footer with booking info.
+         Designed to guide the user from the "Why" (Hero/Philosophy) to the "What" (Program) and "How" (Stats/Team).
+    -->
+    <!-- Visualization & Content Choices:
+         - Tour Activity Chart (Bar): Shows performance frequency by month to demonstrate reliability and popularity.
+         - Program Balance (Radar): Visualizes the mix of Education, Fun, Art, and Participation.
+         - 4-Step Interactive Tabs: Allows users to focus on one educational stage at a time without overwhelming text.
+         - Team Grid: Humanizes the group with roles.
+         - Confirmation: NO SVG, NO Mermaid. All icons are Unicode or CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased selection:bg-orange-100 selection:text-orange-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-black text-orange-600 tracking-tighter">THE 흥</span>
+                    <span class="ml-2 text-sm font-medium text-stone-500 hidden sm:block">더흥컴퍼니</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#about" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">소개</a>
+                    <a href="#program" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">프로그램</a>
+                    <a href="#analytics" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">활동실적</a>
+                    <a href="#team" class="text-stone-600 hover:text-orange-600 transition-colors font-medium">구성원</a>
+                </div>
+                <button onclick="document.getElementById('contact').scrollIntoView({behavior: 'smooth'})" class="bg-stone-900 text-white px-4 py-2 rounded-lg text-sm font-bold hover:bg-stone-700 transition-colors">
+                    문의하기
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative bg-stone-100 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ea580c_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 flex flex-col items-center text-center">
+            <span class="inline-block py-1 px-3 rounded-full bg-orange-100 text-orange-700 text-xs font-bold uppercase tracking-wider mb-4">2026 찾아가는 전통음악 콘서트</span>
+            <h1 class="text-4xl md:text-6xl font-black text-stone-900 mb-6 leading-tight">
+                교과서 속 국악,<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-red-600">생동하는 예술 경험</span>이 되다
+            </h1>
+            <p class="mt-4 max-w-2xl text-xl text-stone-600 serif">
+                "눈으로만 읽던 국악은 이제 그만! 🙅‍♂️<br>
+                직접 듣고, 두드리고, 만드는 오감만족 에듀테인먼트 여행을 떠나보세요."
+            </p>
+            <div class="mt-10 flex gap-4">
+                <a href="#program" class="px-8 py-3 rounded-full bg-orange-600 text-white font-bold text-lg shadow-lg hover:bg-orange-700 transform hover:-translate-y-1 transition-all">
+                    여행 떠나기 🚀
+                </a>
+                <a href="#analytics" class="px-8 py-3 rounded-full bg-white text-stone-700 border border-stone-300 font-bold text-lg shadow-sm hover:bg-stone-50 transition-all">
+                    실적 보기 📊
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Core Philosophy Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-stone-900 mb-4">왜 '더흥컴퍼니'인가요?</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">
+                    온고지신(溫故知新). 옛것을 바탕으로 새로움을 만듭니다.<br>
+                    2022 개정 교육과정의 핵심을 꿰뚫고, 아이들의 눈높이에 맞춘 '진짜 국악'을 선물합니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="p-8 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl mb-6">📚</div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-2">교과서의 완벽한 무대화</h3>
+                    <p class="text-stone-600">
+                        말붙임새 만들기, 장단꼴 변형 등 교과서 필수 활동을 공연에 유기적으로 녹여냈습니다. 학습과 놀이의 경계를 허뭅니다.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="p-8 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl mb-6">🎸</div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-2">동시대적 감수성</h3>
+                    <p class="text-stone-600">
+                        피리, 가야금에 드럼과 피아노를 더했습니다. 익숙한 현대적 사운드 위에서 국악의 매력을 새롭게 발견합니다.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="p-8 rounded-2xl bg-stone-50 border border-stone-100 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center text-2xl mb-6">🙌</div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-2">주도적 참여 (Interactive)</h3>
+                    <p class="text-stone-600">
+                        수동적인 관람은 NO! 학생들이 직접 '일일 소리꾼'이 되어 메기고 받으며 공연을 함께 완성합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Section (Interactive Tabs) -->
+    <section id="program" class="py-20 bg-stone-900 text-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <span class="text-orange-500 font-bold tracking-wider uppercase text-sm">Curriculum</span>
+                <h2 class="text-3xl md:text-4xl font-bold mt-2">4단계 입체적 프로그램</h2>
+                <p class="text-stone-400 mt-4 max-w-2xl">
+                    단순한 감상이 아닙니다. 듣고, 연주하고, 창작하고, 확산하는 체계적인 4-Step 프로세스를 경험해보세요.
+                    아래 단계를 클릭하여 상세 내용을 확인하세요.
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Tabs -->
+                <div class="flex flex-row lg:flex-col overflow-x-auto lg:overflow-visible gap-2 lg:w-1/4 min-w-max pb-4 lg:pb-0" id="stepTabs">
+                    <button class="tab-btn active-tab px-6 py-4 rounded-xl text-left transition-all duration-200 border-l-4 border-transparent hover:bg-stone-800 flex items-center gap-4 group" data-step="0">
+                        <span class="bg-stone-800 group-[.active-tab]:bg-white group-[.active-tab]:text-orange-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors">1</span>
+                        <div>
+                            <div class="font-bold text-lg">감상 (Listening)</div>
+                            <div class="text-xs text-stone-400 group-[.active-tab]:text-stone-200">소리의 결을 듣다</div>
+                        </div>
+                    </button>
+                    <button class="tab-btn px-6 py-4 rounded-xl text-left transition-all duration-200 border-l-4 border-transparent hover:bg-stone-800 flex items-center gap-4 group" data-step="1">
+                        <span class="bg-stone-800 group-[.active-tab]:bg-white group-[.active-tab]:text-orange-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors">2</span>
+                        <div>
+                            <div class="font-bold text-lg">연주 (Playing)</div>
+                            <div class="text-xs text-stone-400 group-[.active-tab]:text-stone-200">장단의 틀을 체득하다</div>
+                        </div>
+                    </button>
+                    <button class="tab-btn px-6 py-4 rounded-xl text-left transition-all duration-200 border-l-4 border-transparent hover:bg-stone-800 flex items-center gap-4 group" data-step="2">
+                        <span class="bg-stone-800 group-[.active-tab]:bg-white group-[.active-tab]:text-orange-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors">3</span>
+                        <div>
+                            <div class="font-bold text-lg">창작 (Creating)</div>
+                            <div class="text-xs text-stone-400 group-[.active-tab]:text-stone-200">말붙임새 구성</div>
+                        </div>
+                    </button>
+                    <button class="tab-btn px-6 py-4 rounded-xl text-left transition-all duration-200 border-l-4 border-transparent hover:bg-stone-800 flex items-center gap-4 group" data-step="3">
+                        <span class="bg-stone-800 group-[.active-tab]:bg-white group-[.active-tab]:text-orange-600 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-colors">4</span>
+                        <div>
+                            <div class="font-bold text-lg">확산 (Sharing)</div>
+                            <div class="text-xs text-stone-400 group-[.active-tab]:text-stone-200">대동(大同)의 완성</div>
+                        </div>
+                    </button>
+                </div>
+
+                <!-- Content Area -->
+                <div class="flex-1 bg-stone-800 rounded-2xl p-8 relative overflow-hidden min-h-[400px] flex items-center">
+                    <!-- Background Decoration -->
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-orange-500 rounded-full blur-[100px] opacity-10 pointer-events-none"></div>
+                    
+                    <div id="stepContentContainer" class="w-full relative z-10">
+                        <!-- Content injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section id="analytics" class="py-20 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <h2 class="text-3xl font-bold text-stone-900">검증된 공연 실적</h2>
+                    <p class="text-stone-600 mt-2">2024~2025년 천안, 아산, 세종 등 수많은 학교가 선택했습니다.</p>
+                </div>
+                <div class="mt-4 md:mt-0">
+                    <span class="text-4xl font-black text-orange-600">35+</span>
+                    <span class="text-stone-600 font-bold ml-2">누적 공연 횟수</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Bar Chart: Seasonality -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-lg font-bold text-stone-900 mb-4">📅 월별 공연 활동 추이 (2024-2025 합계)</h3>
+                    <div class="chart-container">
+                        <canvas id="monthlyChart"></canvas>
+                    </div>
+                    <p class="text-sm text-stone-500 mt-4 text-center">
+                        *학기 중(4~7월, 10~12월)에 집중적인 공연 요청이 이어지고 있습니다.
+                    </p>
+                </div>
+
+                <!-- Radar Chart: Program Characteristics -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-stone-200">
+                    <h3 class="text-lg font-bold text-stone-900 mb-4">🎯 프로그램 밸런스 분석</h3>
+                    <div class="chart-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                    <p class="text-sm text-stone-500 mt-4 text-center">
+                        교육적 깊이와 예술적 재미의 완벽한 조화를 추구합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-20 bg-white border-t border-stone-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-stone-900">만드는 사람들</h2>
+                <p class="text-stone-600 mt-2">각 분야 최고의 전문가 8인이 함께합니다.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Team Member Cards -->
+                <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🎺</div>
+                    <h4 class="font-bold text-lg text-stone-900">박상진</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">대표 / 피리·태평소</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">단국대 국악과 졸업<br>천안청소년국악관현악단 지휘</p>
+                </div>
+
+                <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🎻</div>
+                    <h4 class="font-bold text-lg text-stone-900">공채린</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">가야금</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">한국교원대 음악교육학 박사과정<br>중앙대 전통예술학부 졸업</p>
+                </div>
+
+                <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🎼</div>
+                    <h4 class="font-bold text-lg text-stone-900">조소연</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">해금</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">중앙대 전통예술학부 졸업<br>김영재류 해금산조 보존회</p>
+                </div>
+
+                <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🎋</div>
+                    <h4 class="font-bold text-lg text-stone-900">오혁</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">대금·소금</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">단국대 국악과 졸업<br>한국음악협회 정회원</p>
+                </div>
+                
+                <!-- Row 2 -->
+                <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🎤</div>
+                    <h4 class="font-bold text-lg text-stone-900">박문정</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">사회·보컬</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">목원대 국악과 졸업<br>빛고을기약대제전 대상</p>
+                </div>
+
+                <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🥁</div>
+                    <h4 class="font-bold text-lg text-stone-900">최철영</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">국악타악·봉산탈춤</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">국가무형유산 봉산탈춤 전수자<br>단국대 국악과 졸업</p>
+                </div>
+
+                 <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🥁</div>
+                    <h4 class="font-bold text-lg text-stone-900">윤명식</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">드럼</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">호원대 실용음악과 재학<br>피리밴드 저클 동인</p>
+                </div>
+                
+                 <div class="group bg-stone-50 p-6 rounded-xl hover:bg-orange-50 transition-colors cursor-default border border-stone-100 hover:border-orange-100">
+                    <div class="w-16 h-16 bg-stone-200 rounded-full mb-4 flex items-center justify-center text-2xl group-hover:bg-white transition-colors">🎹</div>
+                    <h4 class="font-bold text-lg text-stone-900">김한슬</h4>
+                    <p class="text-orange-600 text-sm font-medium mb-2">피아노</p>
+                    <p class="text-xs text-stone-500 leading-relaxed">백석대 실용음악학과 졸업<br>대중음악 작곡가 활동</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-stone-900 text-stone-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+                <h3 class="text-white text-xl font-bold mb-4">더흥컴퍼니</h3>
+                <p class="mb-2">충청남도 천안시 동남구 백석로 188-8</p>
+                <p class="mb-2">대표: 박상진 | 010-7286-5868</p>
+                <p>Email: krts0210@naver.com</p>
+                <div class="mt-6 flex space-x-4">
+                    <a href="#" class="text-stone-400 hover:text-white transition-colors">Instagram</a>
+                    <a href="#" class="text-stone-400 hover:text-white transition-colors">Youtube</a>
+                </div>
+            </div>
+            <div class="md:text-right">
+                <p class="text-sm">본 공연은 '2022 개정 음악과 교육과정'을 반영한<br>관객 참여형 에듀테인먼트입니다.</p>
+                <div class="mt-4 inline-block bg-stone-800 px-4 py-2 rounded-lg border border-stone-700">
+                    <span class="text-orange-500 font-bold">2026 신나는 국악여행</span> 지원작
+                </div>
+                <p class="mt-8 text-xs text-stone-600">© 2026 The Heung Company. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Data for Interactive Steps
+        const stepsData = [
+            {
+                title: "1단계: 감상 (Listening)",
+                subtitle: "소리의 결을 듣다 👂",
+                desc: "서양 악기의 '곧은 소리'와 국악기의 '움직이는 소리'를 비교하며 듣습니다. 요성(떠는 소리)과 퇴성(꺾는 소리)을 시각화하여 음악의 원리를 직관적으로 이해합니다.",
+                tags: ["지식·이해", "음악 원리", "시김새 발견"],
+                icon: "🎧"
+            },
+            {
+                title: "2단계: 연주 (Playing)",
+                subtitle: "장단의 틀을 체득하다 👏",
+                desc: "구음(입소리)과 무릎 장단으로 자진모리와 굿거리장단의 기본형을 익힙니다. 느린 장단에서 빠른 장단으로 몰아가는 '한배'의 변화를 몸으로 느낍니다.",
+                tags: ["과정·기능", "신체 표현", "장단 체득"],
+                icon: "🥁"
+            },
+            {
+                title: "3단계: 창작 (Creating)",
+                subtitle: "말붙임새 구성 ✍️",
+                desc: "'급식', '우리 반 자랑' 등 학생들의 생활 언어를 장단에 얹어 즉석에서 노래를 만듭니다. 교과서 제재곡의 말붙임새를 분석하고 바꿔보는 창의적 활동입니다.",
+                tags: ["과정·기능", "창의적 창작", "말붙임새"],
+                icon: "💡"
+            },
+            {
+                title: "4단계: 확산 (Sharing)",
+                subtitle: "대동(大同)의 완성 🎉",
+                desc: "소리꾼(선창)과 학생(후창)이 소리를 주고받으며 거대한 합창을 완성합니다. '얼쑤!', '좋다!' 추임새를 넣으며 무대와 객석이 하나 되는 신명나는 굿판이 벌어집니다.",
+                tags: ["가치·태도", "공동체 역량", "흥놀이 한마당"],
+                icon: "🎊"
+            }
+        ];
+
+        // Step Interactions
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const contentContainer = document.getElementById('stepContentContainer');
+
+        function renderStep(index) {
+            const data = stepsData[index];
+            contentContainer.innerHTML = `
+                <div class="step-content animate-fade-in">
+                    <div class="flex items-center justify-between mb-6">
+                        <div class="text-5xl">${data.icon}</div>
+                        <div class="flex gap-2">
+                            ${data.tags.map(tag => `<span class="px-3 py-1 rounded-full bg-stone-700 text-xs text-orange-400 font-bold border border-stone-600">${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                    <h3 class="text-3xl font-bold text-white mb-2">${data.title}</h3>
+                    <h4 class="text-xl text-orange-500 font-serif mb-6">${data.subtitle}</h4>
+                    <p class="text-lg text-stone-300 leading-relaxed bg-stone-900/50 p-6 rounded-xl border-l-4 border-orange-600">
+                        ${data.desc}
+                    </p>
+                </div>
+            `;
+        }
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update styling
+                tabButtons.forEach(b => b.classList.remove('active-tab'));
+                btn.classList.add('active-tab');
+                
+                // Update content
+                const stepIndex = btn.getAttribute('data-step');
+                renderStep(stepIndex);
+            });
+        });
+
+        // Initialize first step
+        renderStep(0);
+
+        // Chart.js Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // 1. Monthly Performance Chart
+            // Data aggregated from PDF source (Approximate counts)
+            const ctxMonthly = document.getElementById('monthlyChart').getContext('2d');
+            new Chart(ctxMonthly, {
+                type: 'bar',
+                data: {
+                    labels: ['2월', '4월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+                    datasets: [{
+                        label: '공연 횟수 (2024-2025)',
+                        data: [1, 5, 5, 10, 1, 2, 5, 3, 5], // Aggregated counts
+                        backgroundColor: '#ea580c',
+                        borderRadius: 6,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(28, 25, 23, 0.9)',
+                            padding: 12,
+                            titleFont: { family: 'Noto Sans KR', size: 14 },
+                            bodyFont: { family: 'Noto Sans KR', size: 13 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f5f5f4' },
+                            ticks: { font: { family: 'Noto Sans KR' } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { family: 'Noto Sans KR' } }
+                        }
+                    }
+                }
+            });
+
+            // 2. Radar Chart - Program Balance
+            const ctxRadar = document.getElementById('radarChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['교육적 효과', '예술적 완성도', '학생 참여도', '재미/흥미', '전통 보존'],
+                    datasets: [{
+                        label: '더흥컴퍼니 프로그램 분석',
+                        data: [95, 90, 100, 95, 85],
+                        fill: true,
+                        backgroundColor: 'rgba(234, 88, 12, 0.2)',
+                        borderColor: '#ea580c',
+                        pointBackgroundColor: '#ea580c',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: '#ea580c'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e7e5e4' },
+                            grid: { color: '#e7e5e4' },
+                            pointLabels: {
+                                font: {
+                                    size: 12,
+                                    family: 'Noto Sans KR',
+                                    weight: 'bold'
+                                },
+                                color: '#44403c'
+                            },
+                            ticks: { display: false, backdropColor: 'transparent' },
+                            suggestedMin: 50,
+                            suggestedMax: 100
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
