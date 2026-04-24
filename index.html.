@@ -154,7 +154,7 @@ footer{padding:24px 20px;border-top:1px solid #1a1a22;display:flex;align-items:c
 <section class="cta-band">
   <div class="label" style="color:#7a6028;">Contact</div>
   <h2>행사에 맞는 공연을 직접 제안해 드립니다</h2>
-  <p>날짜·장소·규모를 알려주시면<br>대표 박상진이 직접 안내합니다</p>
+  <p>날짜·장소·규모를 알려주시면<br>행사에 맞게 무대를 꾸며드립니다</p>
   <a href="tel:010-7286-5868" class="cta-main">010-7286-5868</a>
 </section>
 
